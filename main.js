@@ -2,8 +2,64 @@
 const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
-// Your JavaScript code goes here!
+let glyphStates = {
+  "♡": "♥",
+  "♥": "♡"
+};
 
+let colorStates = {
+  "red" : "",
+  "": "red"
+};
+
+let articleHearts = document.querySelectorAll(".like");
+
+function likeCallback(e) {
+  let heart = e.target;
+  mimicServerCall("bogusUrl")
+   //OR: mimicServerCall("bogusUrl", {forceFailure: true})
+    .then(function(serverMessage){
+       heart.innerText = glyphStates[heart.innerText];
+       heart.style.color = colorStates[heart.style.color];
+    })
+    .catch(function(error) {
+      // Basic
+      // alert("Something went wrong!");
+      // or....
+      document.getElementById("modal").className = "";
+    });
+}
+
+for (let glyph of articleHearts) {
+  glyph.addEventListener("click", likeCallback);
+}
+
+
+/////////////// my previous code /////////////
+
+// // empty heart finder 
+// const emptyHearts = document.querySelectorAll('.like-glyph')
+// console.log(emptyHearts)
+
+// // add event listener to each heart
+// emptyHearts.forEach(item => {
+//   item.addEventListener('click', event => {
+//     mimicServerCall() 
+//     item.innerText = '❤️'
+//   })
+// })
+
+// //create mmimicServerCall
+// function mimicServerCall(){
+//   console.log('hi')
+
+//   fetch(bogusURL)
+//   .then(function(response){
+//     response.json()
+//     item.innerText = '❤️'
+//     item.classList.add = "activated-heart"
+//   })
+// }
 
 
 
